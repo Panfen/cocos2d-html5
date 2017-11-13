@@ -1,0 +1,23 @@
+{
+  "name": "game-server",
+  "version": "1.0.0",
+  "description": "a cocos2d-html5 game server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "www.server.com"
+  },
+  "keywords": [
+    "cocos2d-html5"
+  ],
+  "author": "Panfen",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.15.4",
+    "path": "^0.12.7"
+  }
+}
