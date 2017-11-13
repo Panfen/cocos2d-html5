@@ -1,4 +1,4 @@
-var img_home_background = 'fly/background.png';
+var img_background = 'background.jpg';
 var img_game_background = 'fly/background_1.png';
 var img_myfly = 'fly/myfly.gif';
 
@@ -14,7 +14,7 @@ var img_h4 = 'house/h4.png';
 
 var g_resources = [
   //image
-  img_home_background,
+  img_background,
   img_game_background,
   img_myfly,
 

@@ -1,4 +1,4 @@
-var MyLayer = cc.Layer.extend({
+var IndexLayer = cc.Layer.extend({
 
 	sprite: null,
 	isPlaying: false,
@@ -107,10 +107,10 @@ var MyLayer = cc.Layer.extend({
   }
 });
 
-var MyScene = cc.Scene.extend({
+var IndexScene = cc.Scene.extend({
   onEnter: function () {
     this._super();
-    var layer = new MyLayer();
+    var layer = new IndexLayer();
     this.addChild(layer);  //一个场景Scene对应一到多个层Layer
     layer.init();
   }
