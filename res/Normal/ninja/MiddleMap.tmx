@@ -3,9 +3,22 @@
  <tileset firstgid="1" name="dg_grounds32" tilewidth="32" tileheight="32">
   <image source="dg_grounds32.jpg" width="288" height="608"/>
  </tileset>
+ <tileset firstgid="172" name="collidable_tiles" tilewidth="32" tileheight="32">
+  <image source="collidable_tiles.jpg" width="32" height="32"/>
+  <tile id="0">
+   <properties>
+    <property name="Collidable" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
  <layer name="background" width="32" height="32">
   <data encoding="base64" compression="zlib">
    eJztlsEJwzAMRX3OQoZCB/AS2aDQUyBLeI9sWUojEL+WLdUqTiCHB0ZO876Vxs4UQpgOxANo1bW/t3ile/VS8vHxBnhkqK2F5m47Jb/UG08k779YjdfPO+/xArQ8ElbvDGiy0HNFL9Vr7syIbHwX0PTDQgTIg5lW8C+KtWndOXzniDDP/Zll4P2j7BY/z9G6XnomVu/FB/6O1Wq8XprzyID3xrq390iMWuuzAZ1TPXt7iRTK53QpA7lov8EMW/h9T05ClqTsC9+Lvc72pPBrSB0ZtP8P9HFGv1MX5wK/bVp4er0Y6bb6Lb1ucYZvrxdHb6jj
+  </data>
+ </layer>
+ <layer name="collidable" width="32" height="32" opacity="0">
+  <data encoding="base64" compression="zlib">
+   eJztlFEOwCAIQ73/WXbI/S8OisVVJy/hx0RatdLaWlyP8tbR/RHdt15s9fQsnQwP1lm8c1p3k8nomzF6zF7UK5qFWV68TEV6j2ScIfOvfa3Neoq8E+K3KAoc1exRz53ZPla5GxaldnEWqnz9af7soq3gBiz53Q0=
   </data>
  </layer>
  <objectgroup name="objects">
