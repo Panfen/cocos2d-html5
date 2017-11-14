@@ -12,7 +12,7 @@
   "jsList" : [
     "src/resource.js",
     "src/App.js",
-    "src/GameScene.js",
-    "src/ActionTypes.js"
+    "src/Demo1Scene.js",
+    "src/Demo2Scene.js"
   ]
 }

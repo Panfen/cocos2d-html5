@@ -1,16 +1,21 @@
 var img_background = 'background.jpg';
+
 var img_game_background = 'fly/background_1.png';
 var img_myfly = 'fly/myfly.gif';
 
-var img_h_background = 'house/background.png';
-var img_go = 'house/go.png';
-var img_stop = 'house/stop.png';
-var img_run_plist = 'house/run.plist';
-var img_run = 'house/run.png';
-var img_h1 = 'house/h1.png';
-var img_h2 = 'house/h2.png';
-var img_h3 = 'house/h3.png';
-var img_h4 = 'house/h4.png';
+var img_horse_background = 'horse/background.png';
+var img_horse_go = 'horse/go.png';
+var img_horse_stop = 'horse/stop.png';
+var img_horse_run_plist = 'horse/run.plist';
+var img_horse_run = 'horse/run.png';
+var img_horse_h1 = 'horse/h1.png';
+var img_horse_h2 = 'horse/h2.png';
+var img_horse_h3 = 'horse/h3.png';
+var img_horse_h4 = 'horse/h4.png';
+
+var img_ninja_MiddleMap = 'ninja/MiddleMap.tmx';
+var img_ninja_dg_grounds = 'ninja/dg_grounds32.jpg';
+var img_ninja_ninja = 'ninja/ninja.png';
 
 var g_resources = [
   //image
@@ -18,15 +23,19 @@ var g_resources = [
   img_game_background,
   img_myfly,
 
-  img_h_background,
-  img_go,
-  img_stop,
-  img_run_plist,
-  img_run,
-  img_h1,
-  img_h2,
-  img_h3,
-  img_h4,
+  img_horse_background,
+  img_horse_go,
+  img_horse_stop,
+  img_horse_run_plist,
+  img_horse_run,
+  img_horse_h1,
+  img_horse_h2,
+  img_horse_h3,
+  img_horse_h4,
+
+  img_ninja_MiddleMap,
+  img_ninja_dg_grounds,
+  img_ninja_ninja,
 
 
   //plist
