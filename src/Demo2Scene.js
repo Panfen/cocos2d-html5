@@ -22,7 +22,7 @@ var Demo2Layer = cc.Layer.extend({
 				_player = new cc.Sprite(img_ninja_ninja);
 				_player.x = spawnPoint.x;
 				_player.y = spawnPoint.y - 64;
-				this.addChild(_player, 2, 200);  // 第2个参数是z轴绘制顺序，第3个参数是标签
+				this.addChild(_player, 2, 200);
 				break;
 			}
 		}
@@ -47,8 +47,6 @@ var Demo2Layer = cc.Layer.extend({
 	onTouchMoved: function(touch, event){
 		cc.log('onTouchMoved');
 	},
-
-	// onTouchBegan  onTouchEnded
 
 	onTouchBegan: function(touch, event){
 		var target = event.getCurrentTarget();
@@ -85,16 +83,49 @@ var Demo2Layer = cc.Layer.extend({
 		//获得瓦片GID
 		var tileGid = _collidable.getTileGIDAt(tileCoord);
 
+		//碰撞规则：忍者的头部碰到障碍物视为发生碰撞
+		if(tileGid > 0){
+			cc.log('发生碰撞！');
+			cc.audioEngine.playEffect(wav_ninja_empty);
+		}else{
+		_player.setPosition(pos);
+			this.setViewpointCenter(_player.getPosition());
+		}
 	},
 
-	tileCoordPosition: function(pos){},
+	//像素点转换成瓦片坐标
+	tileCoordPosition: function(pos){
+		var x = pos.x / _tileMap.getTileSize().width;
+		x = parseInt(x, 10);
+		var y = ((_tileMap.getMapSize().height * _tileMap.getTileSize().height) - pos.y) / _tileMap.getTileSize().height;
+		y = parseInt(y, 10);
+		return cc.p(x, y);
+	},
+
+	setViewpointCenter: function(pos){
+		var size = cc.director.getWinSize();
+
+		//防止视图左边超出屏幕之外
+		var x = Math.max(pos.x, size.width / 2);
+		var y = Math.max(pos.y, size.height / 2);
+
+		//防止视图右边超出屏幕之外
+		x = Math.min(x, (_tileMap.getMapSize().width * _tileMap.getTileSize().width) - size.width / 2);
+		y = Math.min(x, (_tileMap.getMapSize().height * _tileMap.getTileSize().height) - size.height / 2);
+
+		//屏幕中心点
+		var pointA = cc.p(size.width / 2, size.height / 2);
+		//使精灵处于屏幕中心，移动地图位置
+		var pointB = cc.p(x, y);
+
+		var offset = cc.pSub(pointA, pointB);
+		this.setPosition(offset);
+	},
 
 	onExit: function(){
 		this._super();
 		cc.eventManager.removeListeners(cc.EventListener.TOUCH_ONE_BY_ONE);
 	}
-
-
 });
 
 var Demo2Scene = cc.Scene.extend({

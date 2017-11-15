@@ -16,6 +16,9 @@ var img_horse_h4 = 'horse/h4.png';
 var img_ninja_MiddleMap = 'ninja/MiddleMap.tmx';
 var img_ninja_dg_grounds = 'ninja/dg_grounds32.jpg';
 var img_ninja_ninja = 'ninja/ninja.png';
+var wav_ninja_empty = 'ninja/empty.wav';
+
+var img_chipmunk_box = 'chipmunk/BoxA2.png';
 
 var g_resources = [
   //image
@@ -36,6 +39,9 @@ var g_resources = [
   img_ninja_MiddleMap,
   img_ninja_dg_grounds,
   img_ninja_ninja,
+  wav_ninja_empty,
+
+  img_chipmunk_box,
 
 
   //plist
