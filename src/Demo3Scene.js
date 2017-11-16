@@ -1,6 +1,7 @@
 var SPRITE_WIDTH = 64;
 var SPRITE_HEIGHT = 64;
 var DEBUG_NODE_SHOW = true;
+var COLLISION_TYPE = 1;
 
 var Demo3Layer = cc.Layer.extend({
 
@@ -34,20 +35,31 @@ var Demo3Layer = cc.Layer.extend({
 	},
 
 	addNewSpriteAtPosition: function(pos){
+		var body1 = this.createBody(img_chipmunk_boxA, pos);
+		var body2 = this.createBody(img_chipmunk_boxB, cc.pAdd(pos, cc.p(100, -100)));
+		//cp.PinJoint关节对象：物体1，物体2，物体1的锚点，物体2的锚点
+		this.space.addConstraint(new cp.PinJoint(body1, body2, cp.v(0, 0), cp.v(0, SPRITE_WIDTH / 2)));
+
+		// body.data = sprite;
+	},
+
+	createBody: function(fileName, pos){
 		var body = new cp.Body(1, cp.momentForBox(1, SPRITE_WIDTH, SPRITE_HEIGHT));
-		body.setPos(pos);
+		body.p = pos;
 		this.space.addBody(body);
 
 		var shape = new cp.BoxShape(body, SPRITE_WIDTH, SPRITE_HEIGHT);
-		shape.setElasticity(0.5);
-		shape.setFriction(0.5);
+		shape.e = 0.5;
+		shape.u = 0.5;
+		// shape.setCollisionType(COLLISION_TYPE);
 		this.space.addShape(shape);
 
 		//创建物理引擎精灵对象
-		var sprite = new cc.PhysicsSprite(img_chipmunk_box);
+		var sprite = new cc.PhysicsSprite(fileName);
 		sprite.setBody(body);
-		sprite.setPosition(cc.p(pos.x, pos.y));
+		sprite.setPosition(pos);
 		this.addChild(sprite);
+		return body;
 	},
 
 	onExit: function(){
@@ -77,6 +89,16 @@ var Demo3Layer = cc.Layer.extend({
 			shape.setFriction(1);
 			this.space.addStaticShape(shape);
 		}
+
+		//设置碰撞检测
+		this.space.addCollisionHandler(
+			COLLISION_TYPE,
+			COLLISION_TYPE,
+			this.collisionBegin.bind(this),
+			this.collisionPre.bind(this),
+			this.collisionPost.bind(this),
+			this.collisionSeparate.bind(this)
+		);
 	},
 
 	setupDebugNode: function(){
@@ -88,6 +110,42 @@ var Demo3Layer = cc.Layer.extend({
 	update: function(dt){
 		var timeStep = 0.03;
 		this.space.step(timeStep);
+	},
+
+	collisionBegin: function(arbiter, space){
+		var shapes = arbiter.getShapes();
+		var bodyA = shapes[0].getBody();
+		var bodyB = shapes[1].getBody();
+
+		var spriteA = bodyA.data;
+		var spriteB = bodyB.data;
+
+		if(spriteA != null && spriteB != null){
+			spriteA.setColor(new cc.Color(255, 255, 0, 255));
+			spriteB.setColor(new cc.Color(255, 255, 0, 255));
+		}
+	},
+
+	collisionPre: function(arbiter, space){
+		cc.log('collision Pre');
+	},
+
+	collisionPost: function(arbiter, space){
+		cc.log('collision Post');
+	},
+
+	collisionSeparate: function(arbiter, space){
+		var shapes = arbiter.getShapes();
+		var bodyA = shapes[0].getBody();
+		var bodyB = shapes[1].getBody();
+
+		var spriteA = bodyA.data;
+		var spriteB = bodyB.data;
+
+		if(spriteA != null && spriteB != null){
+			spriteA.setColor(new cc.Color(255, 255, 255, 255));
+			spriteB.setColor(new cc.Color(255, 255, 255, 255));
+		}
 	}
 });
 

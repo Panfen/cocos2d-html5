@@ -18,7 +18,8 @@ var img_ninja_dg_grounds = 'ninja/dg_grounds32.jpg';
 var img_ninja_ninja = 'ninja/ninja.png';
 var wav_ninja_empty = 'ninja/empty.wav';
 
-var img_chipmunk_box = 'chipmunk/BoxA2.png';
+var img_chipmunk_boxA = 'chipmunk/BoxA2.png';
+var img_chipmunk_boxB = 'chipmunk/BoxB2.png';
 
 var g_resources = [
   //image
@@ -41,7 +42,8 @@ var g_resources = [
   img_ninja_ninja,
   wav_ninja_empty,
 
-  img_chipmunk_box,
+  img_chipmunk_boxA,
+  img_chipmunk_boxB,
 
 
   //plist
