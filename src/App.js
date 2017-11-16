@@ -22,8 +22,9 @@ var IndexLayer = cc.Layer.extend({
     var demo1MenuItem = new cc.MenuItemFont('1.帧动画', this.menuDemo1Callback, this);
     var demo2MenuItem = new cc.MenuItemFont('2.瓦片地图', this.menuDemo2Callback, this);
     var demo3MenuItem = new cc.MenuItemFont('3.物理引擎', this.menuDemo3Callback, this);
-
-    var menu = new cc.Menu(demo1MenuItem, demo2MenuItem, demo3MenuItem);
+    var demo4MenuItem = new cc.MenuItemFont('4.对象池', this.menuDemo4Callback, this);
+    
+    var menu = new cc.Menu(demo1MenuItem, demo2MenuItem, demo3MenuItem, demo4MenuItem);
     menu.alignItemsVertically()
     this.addChild(menu, 1);
   },
@@ -41,6 +42,11 @@ var IndexLayer = cc.Layer.extend({
   menuDemo3Callback: function(sender){
     var scene = new Demo3Scene();
     cc.director.pushScene(new cc.TransitionMoveInL(1, scene));  //动画持续时间，新场景对象
+  },
+
+  menuDemo4Callback: function(sender){
+    var scene = new Demo4Scene();
+    cc.director.pushScene(new cc.TransitionCrossFade(1, scene));  //动画持续时间，新场景对象
   },
 });
 

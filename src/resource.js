@@ -1,8 +1,5 @@
 var img_background = 'background.jpg';
 
-var img_game_background = 'fly/background_1.png';
-var img_myfly = 'fly/myfly.gif';
-
 var img_horse_background = 'horse/background.png';
 var img_horse_go = 'horse/go.png';
 var img_horse_stop = 'horse/stop.png';
@@ -21,11 +18,13 @@ var wav_ninja_empty = 'ninja/empty.wav';
 var img_chipmunk_boxA = 'chipmunk/BoxA2.png';
 var img_chipmunk_boxB = 'chipmunk/BoxB2.png';
 
+var img_fly_background = 'fly/background_1.png';
+var img_fly_hero= 'fly/myfly.gif';
+var img_fly_bullet= 'fly/bullet.png';
+
 var g_resources = [
   //image
   img_background,
-  img_game_background,
-  img_myfly,
 
   img_horse_background,
   img_horse_go,
@@ -44,6 +43,10 @@ var g_resources = [
 
   img_chipmunk_boxA,
   img_chipmunk_boxB,
+
+  img_fly_background,
+  img_fly_hero,
+  img_fly_bullet,
 
 
   //plist

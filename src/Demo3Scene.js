@@ -1,3 +1,13 @@
+/*
+	使用Chipmunk屋里引擎的步骤：
+	1. 创建物理空间
+	2. 指定空间的边界
+	3. 创建空间中的物体
+	4. 创建空间中的形状
+	5. 连接精灵和物体
+	6. 碰撞检测
+*/
+
 var SPRITE_WIDTH = 64;
 var SPRITE_HEIGHT = 64;
 var DEBUG_NODE_SHOW = true;
@@ -44,7 +54,8 @@ var Demo3Layer = cc.Layer.extend({
 	},
 
 	createBody: function(fileName, pos){
-		var body = new cp.Body(1, cp.momentForBox(1, SPRITE_WIDTH, SPRITE_HEIGHT));
+		//创建动态物体：参数一是质量，参数二是惯性值
+		var body = new cp.Body(1, cp.momentForBox(1, SPRITE_WIDTH, SPRITE_HEIGHT));  //惯性力矩，宽度，高度
 		body.p = pos;
 		this.space.addBody(body);
 
@@ -56,7 +67,7 @@ var Demo3Layer = cc.Layer.extend({
 
 		//创建物理引擎精灵对象
 		var sprite = new cc.PhysicsSprite(fileName);
-		sprite.setBody(body);
+		sprite.setBody(body);  //设置精灵关联的物体
 		sprite.setPosition(pos);
 		this.addChild(sprite);
 		return body;

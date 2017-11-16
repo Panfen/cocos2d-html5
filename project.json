@@ -7,13 +7,15 @@
   "renderMode" : 0,
   "engineDir":"cocos2d/cocos2d-html5/",
 
-  "modules" : ["cocos2d", "external"],
+  "modules" : ["cocos2d", "extensions", "external"],
 
   "jsList" : [
     "src/resource.js",
     "src/App.js",
     "src/Demo1Scene.js",
     "src/Demo2Scene.js",
-    "src/Demo3Scene.js"
+    "src/Demo3Scene.js",
+    "src/Demo4Scene.js",
+    "src/Bullet.js"
   ]
 }
