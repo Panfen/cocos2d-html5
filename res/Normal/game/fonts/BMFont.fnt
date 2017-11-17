@@ -1,0 +1,15 @@
+info face="ººÒÇ÷ìÓñÌå¼ò" size=48 bold=0 italic=0 charset="" unicode=1 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=1,1 outline=0
+common lineHeight=48 base=38 scaleW=128 scaleH=128 pages=1 packed=0 alphaChnl=0 redChnl=4 greenChnl=4 blueChnl=4
+page id=0 file="BMFont.png"
+chars count=11
+char id=48   x=21    y=32    width=19    height=31    xoffset=3     yoffset=8     xadvance=24    page=0  chnl=15
+char id=49   x=0     y=0     width=9     height=32    xoffset=9     yoffset=8     xadvance=24    page=0  chnl=15
+char id=50   x=79    y=0     width=20    height=31    xoffset=2     yoffset=8     xadvance=24    page=0  chnl=15
+char id=51   x=100   y=0     width=20    height=31    xoffset=2     yoffset=8     xadvance=24    page=0  chnl=15
+char id=52   x=41    y=32    width=19    height=31    xoffset=3     yoffset=8     xadvance=24    page=0  chnl=15
+char id=53   x=34    y=0     width=22    height=31    xoffset=2     yoffset=8     xadvance=24    page=0  chnl=15
+char id=54   x=0     y=33    width=20    height=31    xoffset=3     yoffset=8     xadvance=24    page=0  chnl=15
+char id=55   x=61    y=32    width=19    height=31    xoffset=3     yoffset=8     xadvance=24    page=0  chnl=15
+char id=56   x=57    y=0     width=21    height=31    xoffset=2     yoffset=8     xadvance=24    page=0  chnl=15
+char id=57   x=81    y=32    width=19    height=31    xoffset=3     yoffset=8     xadvance=24    page=0  chnl=15
+char id=88   x=10    y=0     width=23    height=31    xoffset=1     yoffset=8     xadvance=24    page=0  chnl=15

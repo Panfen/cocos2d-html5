@@ -16,6 +16,11 @@
     "src/Demo2Scene.js",
     "src/Demo3Scene.js",
     "src/Demo4Scene.js",
-    "src/Bullet.js"
+    "src/Bullet.js",
+    "src/game/HomeScene.js",
+    "src/game/SystemConst.js",
+    "src/game/HelpScene.js",
+    "src/game/GamePlayScene.js",
+    "src/game/SettingScene.js"
   ]
 }
