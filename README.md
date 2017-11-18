@@ -5,7 +5,7 @@
 ### 2.demo说明
 Cocos2d-HTML5简单的demo，仅供入门学习- -。
 
-![cocos2d-html5](http://ozlcirvd6.bkt.clouddn.com/360%E6%88%AA%E5%9B%BE20171118100907898.jpg)
+![cocos2d-html5](http://ozlcirvd6.bkt.clouddn.com/cocos2d-html5.jpg)
 
 
 ### 3.参考资料

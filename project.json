@@ -21,6 +21,9 @@
     "src/game/SystemConst.js",
     "src/game/HelpScene.js",
     "src/game/GamePlayScene.js",
-    "src/game/SettingScene.js"
+    "src/game/SettingScene.js",
+    "src/game/Fighter.js",
+    "src/game/Enemy.js",
+    "src/game/Bullet.js"
   ]
 }
