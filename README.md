@@ -3,7 +3,9 @@
 直接下载`cocos2d-x`的源码取其js部分遇到`CCBoot.js`跨域问题，所以需要后台服务器，果断采用`Node`的`Express`框架搭建，具体可以参考博文：[Cocos2d-HTML5搭载nodejs express3](http://blog.csdn.net/xizai2012/article/details/40631189)
 
 ### 2.demo说明
-都是简单的demo啦，仅供入门学习- -。
+Cocos2d-HTML5简单的demo，仅供入门学习- -。
+
+![cocos2d-html5](http://ozlcirvd6.bkt.clouddn.com/360%E6%88%AA%E5%9B%BE20171118100907898.jpg)
 
 
 ### 3.参考资料
