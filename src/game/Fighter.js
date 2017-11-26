@@ -13,7 +13,7 @@ var Fighter = cc.PhysicsSprite.extend({
 			96, 33.5,
 			0, -80.5
 		];
-		this.body = new cp.Body(1, cp.momentForBody(1, verts, cp.vzero));
+		this.body = new cp.Body(1, cp.momentForPoly(1, verts, cp.vzero));
 		this.body.data = this;
 		this.space.addBody(this.body);
 

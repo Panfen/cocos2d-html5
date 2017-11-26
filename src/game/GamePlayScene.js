@@ -1,6 +1,7 @@
 var GamePlayLayer = cc.Layer.extend({
 
 	space: null,
+	fighter: null,
 
 	ctor: function(){
 		this._super();
@@ -68,6 +69,21 @@ var GamePlayLayer = cc.Layer.extend({
 		//添加敌机1
 		var enemy1 = new Enemy(EnemyTypes.Enemy_1, this.space);
 		this.addChild(enemy1, 10, GameSceneNodeTag.Enemy);
+
+		//添加敌机2
+		var enemy2 = new Enemy(EnemyTypes.Enemy_2, this.space);
+		this.addChild(enemy2, 10, GameSceneNodeTag.Enemy);
+
+		//玩家飞机
+		this.fighter = new Fighter('#gameplay.fighter.png', this.space);
+		this.fighter.body.setPos(cc.p(winSize.width / 2, 100));
+		this.addChild(this.fighter, 10, GameSceneNodeTag.Fighter);
+
+		//创建触摸飞机事件监听器
+		this.touchFighterListener = cc.EventListener.create({
+			event: cc.EventListener.TOUCH_ONE_BY_ONE,
+		});
+
 
 	},
 
