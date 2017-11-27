@@ -4,7 +4,7 @@ var Bullet = cc.PhysicsSprite.extend({
 	velocity: 0,
 
 	ctor: function(spriteFrameName, space){
-		this._super();
+		this._super(spriteFrameName);
 
 		this.space = space;
 		this.body = new cp.Body(1, cp.momentForBox(1, this.getContentSize().width, this.getContentSize().height));
@@ -25,8 +25,8 @@ var Bullet = cc.PhysicsSprite.extend({
 		this.scheduleUpdate();
 	},
 
-	update: function(){
-		this.body.setPos(c.pos(this.body.getPos().x + this.velocity.x * dt, this.body.getPos().y + this.velocity.y * dt));
+	update: function(dt){
+		this.body.setPos(cc.p(this.body.getPos().x + this.velocity.x * dt, this.body.getPos().y + this.velocity.y * dt));
 		if(this.body.getPos().y >= winSize.height){
 			this.unscheduleUpdate();
 			this.body.data = null;

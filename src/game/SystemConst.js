@@ -54,7 +54,7 @@ var GameSceneNodeTag = {
 	BatchBackground: 800,
 	Fighter: 900,
 	ExplosionParticleSystem: 901,
-	Bulle: 100,
+	Bullet: 100,
 	Enemy: 700
 }
 
