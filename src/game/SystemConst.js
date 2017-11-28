@@ -36,8 +36,8 @@ var EnemyScores = {
 var SpriteIniticalHP = {
 	Enemy_Stone: 3,
 	Enemy_1: 5,
-	Enemy_2: 15,
-	Enemy_Planet: 20,
+	Enemy_2: 7,
+	Enemy_Planet: 9,
 	Hero: 5
 };
 

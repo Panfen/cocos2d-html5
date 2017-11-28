@@ -102,6 +102,7 @@ var Enemy = cc.PhysicsSprite.extend({
 			this.spawn();
 	},
 
+	//精灵生成函数
 	spawn: function(){
 		var yPos = winSize.height + this.getContentSize().height / 2;
 		var xPos = cc.random0To1() * (winSize.width - this.getContentSize().width) + this.getContentSize().width / 2;

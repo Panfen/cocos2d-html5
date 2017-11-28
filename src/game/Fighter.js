@@ -1,6 +1,6 @@
 var Fighter = cc.PhysicsSprite.extend({
 
-	hitPoints: true,
+	hitPoints: 0,
 	space: null,
 
 	ctor: function(spriteFrameName, space){
@@ -23,7 +23,7 @@ var Fighter = cc.PhysicsSprite.extend({
 		shape.setCollisionType(CollisionType.Fighter);
 		this.space.addShape(shape);
 
-		this.hitPoints = SpriteIniticalHP.hero;
+		this.hitPoints = SpriteIniticalHP.Hero;
 
 		var ps = new cc.ParticleSystem(game_particle_fire);
 		//在飞机下面

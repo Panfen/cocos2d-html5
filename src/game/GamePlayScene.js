@@ -43,29 +43,6 @@ var GamePlayLayer = cc.Layer.extend({
 		ps.y = winSize.height / 2;
 		this.addChild(ps, 0, GameSceneNodeTag.BatchBackground);
 
-		//添加背景精灵1
-		/*
-		var sprite1 = new cc.Sprite('#gameplay.bg.sprite-1.png');
-		sprite1.setPosition(cc.p(-50, -50));
-		this.addChild(sprite1, 0, GameSceneNodeTag.BatchBackground);
-
-		var ac1 = cc.moveBy(20, cc.p(500, 600));  // 相对移动
-		var ac2 = ac1.reverse();
-		var as1 = cc.sequence(ac1, ac2);
-		sprite1.runAction(cc.repeatForever(new cc.EaseSineInOut(as1)));
-
-		//添加背景精灵2
-		/*
-		var sprite2 = new cc.Sprite('#gameplay.bg.sprite-2.png');
-		sprite2.setPosition(cc.p(winSize.width, 0));
-		this.addChild(sprite2, 0, GameSceneNodeTag.BatchBackground);
-
-		var ac3 = cc.moveBy(10, cc.p(-500, 600));  // 相对移动
-		var ac4 = ac3.reverse();
-		var as2 = cc.sequence(ac3, ac4);
-		sprite2.runAction(cc.repeatForever(new cc.EaseExponentialInOut(as2)));
-		*/
-
 		//添加陨石
 		var stone1 = new Enemy(EnemyTypes.Enemy_Stone, this.space);
 		this.addChild(stone1, 10, GameSceneNodeTag.BatchBackground);
@@ -110,9 +87,11 @@ var GamePlayLayer = cc.Layer.extend({
 		cc.eventManager.addListener(this.touchFighterListener, this.fighter);
 		this.touchFighterListener.retain();
 
-		//显示状态栏
+		//显玩家生命值
+		this.updateStatusBarFighter();
 
 		//显示得分
+		this.updateStatusBarScore();
 	},
 
 	menuPauseCallback: function(sender){
@@ -124,7 +103,7 @@ var GamePlayLayer = cc.Layer.extend({
 		for(var i = 0; i < nodes.length; i++){
 			var node = nodes[i];
 			node.unscheduleUpdate();
-			// this.unschedule(this.shootBullet);
+			this.unschedule(this.shootBullet);
 		}
 
 		//暂停触摸事件
@@ -153,7 +132,7 @@ var GamePlayLayer = cc.Layer.extend({
 			for(var i = 0; i < nodes.length; i++){
 				var node = nodes[i];
 				node.scheduleUpdate();
-				// this.scheduleUpdate(this.shootBullet, 0.2);
+				this.scheduleUpdate(this.shootBullet, 0.2);
 			}
 			//继续触摸事件
 			cc.eventManager.resumeTarget(this.fighter);
@@ -194,8 +173,20 @@ var GamePlayLayer = cc.Layer.extend({
 		//检查到炮弹击中敌机
 		if(spriteA instanceof Bullet && spriteB instanceof Enemy && spriteB.isVisible()){
 			//使得炮弹消失
+			spriteA.setVisible(false);
+			this.handleBulletCollidingWithEnemy(spriteB);
+		}
+		if(spriteA instanceof Enemy && spriteB instanceof Bullet && spriteA.isVisible()){
 			spriteB.setVisible(false);
 			this.handleBulletCollidingWithEnemy(spriteA);
+		}
+
+		//检查到敌机与玩家飞机碰撞
+		if(spriteA instanceof Fighter && spriteB instanceof Enemy && spriteB.isVisible()){
+			this.handleFighterCollidingWithEnemy(spriteB);
+		}
+		if(spriteA instanceof Enemy && spriteB instanceof Fighter && spriteA.isVisible()){
+			this.handleFighterCollidingWithEnemy(spriteA);
 		}
 	},
 
@@ -239,13 +230,46 @@ var GamePlayLayer = cc.Layer.extend({
 			//每次获得1000分，生命值+1，scorePlaceholder恢复0
 			if(this.scorePlaceholder >= 1000){
 				this.fighter.hitPoints++;
-				// this.updateStatusBarFighter();
+				this.updateStatusBarFighter();
 				this.scorePlaceholder -= 1000;
 			}
 
-			// this.updateStatusBarScore();
+			this.updateStatusBarScore();
 			enemy.setVisible(false);
 			enemy.spawn();
+		}
+	},
+
+	handleFighterCollidingWithEnemy: function(enemy){
+		cc.log('haha')
+		var node = this.getChildByTag(GameSceneNodeTag.ExplosionParticleSystem);
+		if(node){
+			this.removeChild(node);
+		}
+		//爆炸粒子效果
+		var explosion = new cc.ParticleSystem(game_particle_explosion);
+		explosion.x = this.fighter.x;
+		explosion.y = this.fighter.y;
+		this.addChild(explosion, 2, GameSceneNodeTag.ExplosionParticleSystem);
+		//爆炸音效
+		if(effectStatus == BOOL.YES){
+			cc.audioEngine.playEffect(game_sound_Explosion_wav);
+		}
+		//设置敌人消失
+		enemy.setVisible(false);
+		enemy.spawn();
+		//玩家设置
+		this.fighter.hitPoints--;
+		this.updateStatusBarFighter();
+		//游戏是否结束
+		if(this.fighter.hitPoints <= 0){
+			//
+		}else{
+			this.fighter.body.setPos(cc.p(winSize.width / 2), 70);
+			var ac1 = cc.show();
+			var ac2 = cc.fadeIn(3.0);
+			var seq = cc.sequence(ac1, ac2)
+			this.fighter.runAction(seq);
 		}
 	},
 
@@ -256,6 +280,39 @@ var GamePlayLayer = cc.Layer.extend({
 		if(node){
 			this.removeChild(node);
 		}
+		var fg = new cc.Sprite('#gameplay.life.png');
+		fg.x = winSize.width - 80;
+		fg.y = winSize.height - 28;
+
+		this.addChild(fg, 20, GameSceneNodeTag.StatusBarFighterNode);
+
+		//添加生命值x5
+		var node2 = this.getChildByTag(GameSceneNodeTag.StatusBarLifeNode);
+		if(node2){
+			this.removeChild(node2);
+		}
+		if(this.fighter.hitPoints < 0){
+			this.fighter.hitPoints = 0;
+		}
+		var lifeLabel = new cc.LabelBMFont('X' + this.fighter.hitPoints, game_fonts_BMFont_fnt);
+		lifeLabel.setScale(0.5);
+		lifeLabel.x = fg.x + 40;
+		lifeLabel.y = fg.y;
+
+		this.addChild(lifeLabel, 20, GameSceneNodeTag.StatusBarLifeNode);
+	},
+
+	//现实得分
+	updateStatusBarScore: function(){
+		var node = this.getChildByTag(GameSceneNodeTag.StatusBarScore);
+		if(node){
+			this.removeChild(node);
+		}
+		var scoreLabel = new cc.LabelBMFont(this.score, game_fonts_BMFont_fnt);
+		scoreLabel.setScale(0.8);
+		scoreLabel.x = winSize.width / 2;
+		scoreLabel.y = winSize.height - 28;
+		this.addChild(scoreLabel, 20, GameSceneNodeTag.StatusBarScore);
 	},
 
 	update: function(){
