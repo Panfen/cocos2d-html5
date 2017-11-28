@@ -32,7 +32,39 @@ var GameOverLayer = cc.Layer.extend({
 		var hscore = new cc.Sprite('#Score.png');
 		hscore.x = 223;
 		hscore.y = winSize.height - 690;
+		this.addChild(hscore);
 
-	}
+		var highScoreLabel = new cc.LabelBMFont(highScore, game_fonts_BMFont_fnt);
+		highScoreLabel.x = hscore.x;
+		highScoreLabel.y = hscore.y - 80;
+		this.addChild(highScoreLabel);
 
+		var tap = new cc.Sprite('#Tap.png');
+		tap.x = winSize.width / 2;
+		tap.y = winSize.height - 860;
+		this.addChild(tap);
+
+		//创建触摸事件监听器
+		this.touchListener = cc.EventListener.create({
+			event: cc.EventListener.TOUCH_ONE_BY_ONE,
+			swallowTouches: true,  //设置是否吞没事件
+			onTouchBegan: function(touch, event){
+				//播放音效
+				if(effectStatus == BOOL.YES){
+					cc.audioEngine.playEffect(game_sound_Blip_wav);
+				}
+				cc.director.popScene();
+			}
+		});
+		cc.eventManager.addListener(this.touchListener, this);
+		this.touchListener.retain();
+	},
+
+	onEnter: function(){
+		this._super();
+	},
+
+	onEnterTransitionDidFinish: function(){
+		//
+	},
 })
