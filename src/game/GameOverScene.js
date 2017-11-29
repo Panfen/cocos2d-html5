@@ -65,6 +65,30 @@ var GameOverLayer = cc.Layer.extend({
 	},
 
 	onEnterTransitionDidFinish: function(){
-		//
+		this._super();
+		if(musicStatus == BOOL.YES){
+			cc.audioEngine.playMusic(game_sound_gameBg_mp3, true);
+		}
 	},
-})
+
+	onExit: function(){
+		this._super();
+		//注销事件监听器
+		if(this.touchListener != null){
+			cc.eventManager.removeListener(this.touchListener);
+			this.touchListener.release();
+			this.touchListener == null;
+		}
+	},
+
+	onExitTransitionDidStart: function(){
+		this._super();
+		cc.audioEngine.stopMusic(game_sound_gameBg_mp3);
+	}
+});
+
+var GameOverScene = cc.Scene.extend({
+	onEnter: function(){
+		this._super();
+	}
+});
