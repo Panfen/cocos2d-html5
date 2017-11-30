@@ -181,7 +181,7 @@ var GamePlayLayer = cc.Layer.extend({
 			return false;
 		}
 		if(spriteA instanceof Enemy && spriteB instanceof Bullet && spriteA.isVisible()){
-			cc.log('击中')
+			cc.log('击中');
 			this.removeChild(spriteB);
 			this.handleBulletCollidingWithEnemy(spriteA);
 			return false;
