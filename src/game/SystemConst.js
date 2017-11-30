@@ -28,15 +28,15 @@ var SpriteVelocity = {
 
 var EnemyScores = {
 	Enemy_Stone: 5,
-	Enemy_1: 10,
-	Enemy_2: 15,
+	Enemy_1: 15,
+	Enemy_2: 10,
 	Enemy_Planet: 20
 };
 
 var SpriteIniticalHP = {
 	Enemy_Stone: 3,
-	Enemy_1: 5,
-	Enemy_2: 7,
+	Enemy_1: 7,
+	Enemy_2: 5,
 	Enemy_Planet: 9,
 	Hero: 5
 };

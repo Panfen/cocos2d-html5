@@ -2,8 +2,10 @@ var GamePlayLayer = cc.Layer.extend({
 
 	space: null,
 	fighter: null,
+	menu: null,
 	score: 0,
 	scorePlaceholder: 0,
+	touchFighterListener: null,
 
 	ctor: function(){
 		this._super();
@@ -44,20 +46,20 @@ var GamePlayLayer = cc.Layer.extend({
 		this.addChild(ps, 0, GameSceneNodeTag.BatchBackground);
 
 		//添加陨石
-		var stone1 = new Enemy(EnemyTypes.Enemy_Stone, this.space);
-		this.addChild(stone1, 10, GameSceneNodeTag.BatchBackground);
+		// var stone1 = new Enemy(EnemyTypes.Enemy_Stone, this.space);
+		// this.addChild(stone1, 10, GameSceneNodeTag.BatchBackground);
 
 		//添加行星
-		var planet = new Enemy(EnemyTypes.Enemy_Planet, this.space);
-		this.addChild(planet, 10, GameSceneNodeTag.Enemy);
+		// var planet = new Enemy(EnemyTypes.Enemy_Planet, this.space);
+		// this.addChild(planet, 10, GameSceneNodeTag.Enemy);
 
-		//添加敌机1
+		//添加敌机1（大飞机）
 		var enemy1 = new Enemy(EnemyTypes.Enemy_1, this.space);
 		this.addChild(enemy1, 10, GameSceneNodeTag.Enemy);
 
 		//添加敌机2
-		var enemy2 = new Enemy(EnemyTypes.Enemy_2, this.space);
-		this.addChild(enemy2, 10, GameSceneNodeTag.Enemy);
+		// var enemy2 = new Enemy(EnemyTypes.Enemy_2, this.space);
+		// this.addChild(enemy2, 10, GameSceneNodeTag.Enemy);
 
 		//玩家飞机
 		this.fighter = new Fighter('#gameplay.fighter.png', this.space);
@@ -137,7 +139,6 @@ var GamePlayLayer = cc.Layer.extend({
 			//继续触摸事件
 			cc.eventManager.resumeTarget(this.fighter);
 			this.removeChild(this.menu);
-
 		}, this);
 
 		this.menu = new cc.Menu(backMenuItem, resumeMenuItem);
@@ -170,24 +171,33 @@ var GamePlayLayer = cc.Layer.extend({
 		var spriteA = bodyA.data;
 		var spriteB = bodyB.data;
 
+		// cc.log((spriteA instanceof Enemy) + '--' + (spriteB instanceof Enemy))
+
 		//检查到炮弹击中敌机
 		if(spriteA instanceof Bullet && spriteB instanceof Enemy && spriteB.isVisible()){
 			//使得炮弹消失
-			spriteA.setVisible(false);
+			this.removeChild(spriteB);
 			this.handleBulletCollidingWithEnemy(spriteB);
+			return false;
 		}
 		if(spriteA instanceof Enemy && spriteB instanceof Bullet && spriteA.isVisible()){
-			spriteB.setVisible(false);
+			cc.log('击中')
+			this.removeChild(spriteB);
 			this.handleBulletCollidingWithEnemy(spriteA);
+			return false;
 		}
 
-		//检查到敌机与玩家飞机碰撞
+		//检查到敌机与玩家飞机碰撞    检测失败
 		if(spriteA instanceof Fighter && spriteB instanceof Enemy && spriteB.isVisible()){
+			cc.log(12)
 			this.handleFighterCollidingWithEnemy(spriteB);
+			return false;
 		}
 		if(spriteA instanceof Enemy && spriteB instanceof Fighter && spriteA.isVisible()){
+			cc.log(13)
 			this.handleFighterCollidingWithEnemy(spriteA);
 		}
+		return false;
 	},
 
 	handleBulletCollidingWithEnemy: function(enemy){
@@ -227,11 +237,11 @@ var GamePlayLayer = cc.Layer.extend({
 					break;
 			}
 
-			//每次获得1000分，生命值+1，scorePlaceholder恢复0
-			if(this.scorePlaceholder >= 1000){
+			//每次获得500分，生命值+1，scorePlaceholder恢复0
+			if(this.scorePlaceholder >= 500){
 				this.fighter.hitPoints++;
 				this.updateStatusBarFighter();
-				this.scorePlaceholder -= 1000;
+				this.scorePlaceholder -= 500;
 			}
 
 			this.updateStatusBarScore();
@@ -241,7 +251,6 @@ var GamePlayLayer = cc.Layer.extend({
 	},
 
 	handleFighterCollidingWithEnemy: function(enemy){
-		cc.log('haha')
 		var node = this.getChildByTag(GameSceneNodeTag.ExplosionParticleSystem);
 		if(node){
 			this.removeChild(node);
@@ -263,7 +272,10 @@ var GamePlayLayer = cc.Layer.extend({
 		this.updateStatusBarFighter();
 		//游戏是否结束
 		if(this.fighter.hitPoints <= 0){
-			//
+			var scene = new GameOverScene();
+			var layer = new GameOverLayer(this.scene);
+			scene.addChild(layer);
+			cc.director.pushScene(new cc.TransitionFade(1, scene));
 		}else{
 			this.fighter.body.setPos(cc.p(winSize.width / 2), 70);
 			var ac1 = cc.show();
