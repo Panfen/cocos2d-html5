@@ -181,20 +181,17 @@ var GamePlayLayer = cc.Layer.extend({
 			return false;
 		}
 		if(spriteA instanceof Enemy && spriteB instanceof Bullet && spriteA.isVisible()){
-			cc.log('击中');
 			this.removeChild(spriteB);
 			this.handleBulletCollidingWithEnemy(spriteA);
 			return false;
 		}
 
-		//检查到敌机与玩家飞机碰撞    检测失败
+		//检查到敌机与玩家飞机碰撞（检测失败，不知为何？）
 		if(spriteA instanceof Fighter && spriteB instanceof Enemy && spriteB.isVisible()){
-			cc.log(12)
 			this.handleFighterCollidingWithEnemy(spriteB);
 			return false;
 		}
 		if(spriteA instanceof Enemy && spriteB instanceof Fighter && spriteA.isVisible()){
-			cc.log(13)
 			this.handleFighterCollidingWithEnemy(spriteA);
 		}
 		return false;
